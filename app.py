@@ -14,7 +14,7 @@ with open(filepath, 'rb') as file:
 
 @app.route('/')
 def home():
-    return jsonify({message :"Server Started"})
+    return jsonify({"message" :"Server Started"})
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -39,7 +39,7 @@ def predict():
     
     # Predict using the model
     prediction = model.predict(input_data)[0]
-    return jsonify({message :"Prediction Successful", prediction : prediction})
+    return jsonify({"message" :"Prediction Successful", "prediction" : prediction})
 
 def encode_soil_type(soil_type):
     # Replace with your actual encoding logic or mapping
