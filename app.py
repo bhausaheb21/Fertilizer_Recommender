@@ -38,7 +38,7 @@ def predict():
                               columns=['Temperature', 'Humidity', 'Moisture', 'soil_type_encoded', 'crop_type_encoded', 'Nitrogen', 'Potassium', 'Phosphorous'])
     
     # Predict using the model
-    prediction = model.predict(input_data)[0]
+    prediction = int(model.predict(input_data)[0])
     return jsonify({"message" :"Prediction Successful", "prediction" : prediction})
 
 def encode_soil_type(soil_type):
