@@ -1,16 +1,20 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
+import os
+
+filepath = os.path.join(os.path.dirname(__file__),'models','rf_pipeline.pkl')
 
 app = Flask(__name__)
 
+
 # Load your trained model (replace 'model.pkl' with your model file)
-with open('C:/Users/sachi/OneDrive/Documents/Indra/Fertilizer/app/models/rf_pipeline.pkl', 'rb') as file:
+with open(filepath, 'rb') as file:
     model = pickle.load(file)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return jsonify({message :"Server Started"})
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -35,7 +39,6 @@ def predict():
     
     # Predict using the model
     prediction = model.predict(input_data)[0]
-    
     return jsonify({message :"Prediction Successful", prediction : prediction})
 
 def encode_soil_type(soil_type):
