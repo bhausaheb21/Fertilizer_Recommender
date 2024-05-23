@@ -19,7 +19,7 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Get form data
-    data = request.form
+    data = request.json
     temperature = float(data['Temperature'])
     humidity = float(data['Humidity'])
     moisture = float(data['Moisture'])
