@@ -3,7 +3,7 @@ import pickle
 import pandas as pd
 import os
 
-filepath = os.path.join(os.path.dirname(__file__),'models','rf_pipeline.pkl')
+filepath = os.path.join(os.path.dirname(__file__),'models','new_rf_pipeline.pkl')
 
 app = Flask(__name__)
 
@@ -22,7 +22,7 @@ def predict():
     data = request.json
     temperature = float(data['Temperature'])
     humidity = float(data['Humidity'])
-    moisture = float(data['Moisture'])
+    # moisture = float(data['Moisture'])
     soil_type = data['Soil Type']
     crop_type = data['Crop Type']
     nitrogen = float(data['Nitrogen'])
@@ -34,8 +34,8 @@ def predict():
     crop_type_encoded = encode_crop_type(crop_type)
     
     # Create DataFrame for model input
-    input_data = pd.DataFrame([[temperature, humidity, moisture, soil_type_encoded, crop_type_encoded, nitrogen, potassium, phosphorous]],
-                              columns=['Temperature', 'Humidity', 'Moisture', 'soil_type_encoded', 'crop_type_encoded', 'Nitrogen', 'Potassium', 'Phosphorous'])
+    input_data = pd.DataFrame([[temperature, humidity, soil_type_encoded, crop_type_encoded, nitrogen, potassium, phosphorous]],
+                              columns=['Temperature', 'Humidity', 'soil_type_encoded', 'crop_type_encoded', 'Nitrogen', 'Potassium', 'Phosphorous'])
     
     # Predict using the model
     prediction = int(model.predict(input_data)[0])
